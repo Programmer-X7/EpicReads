@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.main-container {
+    min-height: 100vh;
+}
+
+.content-container {
+    background: #f0f0f0;
+    flex-grow: 4;
+    padding: 1rem;
+}

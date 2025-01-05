@@ -1,0 +1,33 @@
+a {
+          text-decoration: none;
+        }
+
+        .card-body {
+          padding: 0.5rem 0;
+        }
+
+        .card-text {
+          margin-bottom: 5px;
+        }
+        .product-card {
+          margin-bottom: 20px;
+        }
+
+        .product-img {
+          width: 100%;
+          height: 280px;
+          object-fit: cover;
+        }
+
+        .add-to-cart-btn {
+          width: 100%;
+        }
+
+    /* book Style */
+    .book-title {
+        display: inline-block;
+        max-width: 175px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/edit-user-profile-from.css}">
+    <title>Edit Profile</title>
+</head>
+<body>
+<div layout:fragment="body">
+
+    <div class="container1">
+        <div class="profile-card">
+            <form th:action="@{/admin/edit}" method="post">
+                <div class="contain">
+                    <h3 class="text-center fw-bold mt-1">Edit Profile</h3>
+                    <div class="avatar-upload">
+                        <div class="avatar-preview">
+                            <div id="imagePreview"
+                                 style="background-image: url('https://img.freepik.com/premium-photo/anime-male-avatar_950633-959.jpg');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" th:value="${user.id}" />
+
+                <div class="d-flex w-100" style="gap: 10px">
+                    <div>
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" th:value="${user.firstName}">
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" th:value="${user.lastName}">
+                    </div>
+                </div>
+
+                <label for="userName">Email</label>
+                <input type="email" id="userName" name="userName" th:value="${user.userName}">
+
+                <label for="phoneNumber">Phone</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}">
+
+                <div class="button-group">
+                    <a th:href="@{/admin/profile}" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove indicators from number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;
+}
+
+body {
+    background: #f8f9fa;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  width: 90%;
+  margin: auto;
+}
+
+.profile-image {
+  width: 37px;
+  height: 37px;
+}
+
+.search-section {
+            display: none;
+            position: fixed;
+            top: 56px; /* Adjust based on your navbar height */
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1050; /* Ensure it appears above other content */
+            padding: 10px;
+}
+
+.search-section.show {
+    display: block;
+}

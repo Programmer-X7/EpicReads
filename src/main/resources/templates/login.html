@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <title>Login</title>
+</head>
+<body>
+<div layout:fragment="content" class="login-container">
+    <div class="bg">
+        <img
+                class="w-100"
+                src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/loginbanner.png"
+                alt="Login Banner"
+        />
+        <h1 class="fw-bold">LOGIN</h1>
+
+        <!--        Signup Conformation -->
+        <div th:if="${signupSuccessMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${signupSuccessMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!--        Login Form -->
+        <form th:action="@{/authenticateTheUser}" method="POST" class="form-horizontal">
+
+            <!-- Place for messages: error, alert etc ... -->
+            <div class="form-group">
+                <div class="col-xs-15">
+                    <div>
+                        <!-- Check for login error -->
+
+                        <div th:if="${param.error}">
+                            <div
+                                    class="alert alert-danger alert-dismissible col-xs-offset-1 col-xs-10 fw-medium"
+                                    role="alert"
+                            >
+                                Invalid username and password.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        </div>
+
+                        <!-- Check for logout -->
+
+                        <div th:if="${param.logout}">
+                            <div
+                                    class="alert alert-success col-xs-offset-1 col-xs-10"
+                            >
+                                You have been logged out.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="i1">
+                <input type="text" name="username" placeholder="Email" required/>
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <div class="i1">
+                <input type="password" name="password" placeholder="Password" required/>
+                <i class="bi bi-lock-fill"></i>
+            </div>
+            <div class="k d-grid">
+                <button type="submit" class="btn btn-primary mb-3">Login</button>
+            </div>
+        </form>
+        <p class="text-secondary">Don't have an account? <a th:href="@{/register}" class="text-primary">Register</a></p>
+    </div>
+</div>
+</body>
+</html>

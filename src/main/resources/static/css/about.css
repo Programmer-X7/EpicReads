@@ -1,0 +1,27 @@
+/* Reset some basic elements */
+/* body, h1, h2, h3, p, a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+.about h2 {
+    color: #333;
+}
+
+.about h3 {
+    margin-top: 1rem;
+}
+
+.about p {
+    margin-bottom: 1rem;
+}
+
+.about a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.about a:hover {
+    text-decoration: underline;
+}

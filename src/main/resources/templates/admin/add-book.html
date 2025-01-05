@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Book</title>
+</head>
+<body>
+<div layout:fragment="body" class="bg-white">
+
+    <div class="container px-4 mt-4">
+        <h2 class="pt-4 mb-4">Add New Book</h2>
+        <form th:action="@{/books/add}" method="post" enctype="multipart/form-data">
+            <div class="row">
+
+                <!-- Preview and File Input -->
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <img id="preview" src="https://www.pngkey.com/png/detail/350-3500680_placeholder-png.png"
+                             alt="Book Preview"
+                             class="img-fluid border"
+                             style="max-height: 400px;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookImage" class="form-label">Book Image</label>
+                        <input type="file" class="form-control" id="bookImage" name="bookImage" accept="image/*">
+                    </div>
+                </div>
+
+                <!-- Book Details Form -->
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" class="form-control" id="author" name="author" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryId" class="form-label">Category</label>
+                        <select class="form-select" id="categoryId" name="categoryId" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" class="form-control" id="isbn" name="isbn" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="language" class="form-label">Language</label>
+                        <select class="form-select" id="language" name="language" required>
+                            <option value="" disabled selected>Select Language</option>
+                            <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Bengali">Bengali</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Japanese">Japanese</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pageCount" class="form-label">Page Count</label>
+                        <input type="number" class="form-control" id="pageCount" name="pageCount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="publisher" class="form-label">Publisher</label>
+                        <input type="text" class="form-control" id="publisher" name="publisher" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('bookImage').onchange = function (event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('preview');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            };
+        });
+    </script>
+
+</div>
+</body>
+</html>

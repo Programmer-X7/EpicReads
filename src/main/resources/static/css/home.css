@@ -1,0 +1,23 @@
+/* Carousel Styles */
+    .carousel-item {
+    height: 350px;
+    }
+
+    .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    }
+
+    ol {
+    list-style-type: none;
+    }
+
+/* book Style */
+.book-title {
+    display: inline-block;
+    max-width: 175px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

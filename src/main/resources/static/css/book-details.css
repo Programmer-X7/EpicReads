@@ -1,0 +1,31 @@
+.book-container {
+    padding: 3rem 10rem;
+    gap: 5rem;
+    justify-content: center;
+}
+
+.image-container {
+    min-width: 20rem;
+    width: 20rem;
+}
+
+.image-container img {
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 3px 20px 30px rgba(0, 0, 0, 0.5);
+}
+
+.image-container img:hover {
+    transform: translateY(-10px);
+    box-shadow: 5px 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+.buttons button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.rating {
+    color: #FFE234;
+}

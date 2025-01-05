@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/book-list.css}">
+    <title>Booklist Page</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <h1 th:text="${category.name} + ' Books'" class="my-4">Collection Name</h1>
+        <div class="row">
+            <!-- Products -->
+            <div th:each="book : ${books}" class="col-md-2 product-card">
+                <a th:href="'/books/' + ${book.id}">
+                    <div class="card" style="border: none">
+                        <img
+                                th:src="${book.thumbnail}"
+                                class="card-img-top product-img"
+                                alt="Thumbnail"
+                        />
+                        <div class="card-body">
+                            <h6 th:text="${book.name}" class="book-title card-title text-dark">Book Name</h6>
+                            <p th:text="'Rs. ' + ${book.price}" class="card-text text-dark mb-2">Price</p>
+                            <form action="#" th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                                <button href="#" class="btn btn-outline-primary add-to-cart-btn">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/book-details.css}"/>
+    <link rel="icon" th:href="@{/assets/logo.png}" type="image/png">
+    <title>Book Name</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container d-flex book-container">
+        <!-- Image -->
+        <div class="image-container">
+            <img
+                    th:src="${book.thumbnail}"
+                    alt="Thumbnail"
+            />
+        </div>
+
+        <!-- Details -->
+        <div style="width: 20rem;">
+            <p class="mb-2">EPICREADS</p>
+            <h2 th:text="${book.name}" class="mb-1">Book Title</h2>
+            <p th:text="'By ' + ${book.author}">Author</p>
+            <h3 th:text="'Rs. ' + ${book.price}" class="fw-medium">Price</h3>
+            <div class="rating fs-4 mb-2">
+                &#9733;&#9733;&#9733;&#9733;&#9734; <span class="text-dark fs-6">4.3</span>
+            </div>
+
+            <div class="details">
+                <p><strong>Publisher: </strong> <span th:text="${book.publisher}">Publisher</span></p>
+                <p><strong>ISBN: </strong><span th:text="${book.isbn}">ISBN No.</span></p>
+                <p><strong>Language: </strong><span th:text="${book.language}">Language</span></p>
+                <p><strong>Pages: </strong><span th:text="${book.pageCount}">0</span></p>
+            </div>
+            <div class="buttons">
+                <form action="#" th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                    <button type="submit" class="btn btn-outline-primary">
+                        Add to Cart
+                    </button>
+                </form>
+                <form action="#" th:action="@{/cart/buyNow/{bookId}(bookId=${book.id})}" method="post">
+                    <button type="submit" class="btn btn-primary">
+                        Buy Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!--    Description-->
+    <div class="container mx-auto mb-4" style="width: 45rem;">
+        <h4>Book Description</h4>
+        <article th:text="${book.description}" style="text-align: justify; text-justify: inter-word;"></article>
+    </div>
+</div>
+</body>
+</html>

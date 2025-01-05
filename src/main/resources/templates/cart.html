@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+    <title>Cart</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <section class="bg-light" style="min-height: 80vh">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <!--                                Product Section (Left Side)-->
+                                <div class="col-lg-8">
+                                    <h5 class="mb-3"><a th:href="@{/}" class="text-body">
+                                        <i class="bi bi-arrow-left me-2"></i>Continue shopping</a>
+                                    </h5>
+
+                                    <hr>
+
+                                    <!--                                    NO Cart Item -->
+                                    <div th:if="${cart.items.isEmpty()}">
+                                        <p>Your cart is empty.</p>  <!-- Todo: Beautify -->
+
+                                    </div>
+
+
+                                    <!--                                    Cart Items section-->
+                                    <div th:unless="${cart.items.isEmpty()}">
+
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <div>
+                                                <p class="mb-1">Shopping cart</p>
+                                                <!--                                            Todo: Number of Cart Item-->
+                                                <p class="mb-0">You have <span
+                                                        th:text="${cart.totalItems}">Item Count</span> items in your
+                                                    cart</p>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0">
+                                                    <span class="text-muted">Sort by: </span>
+                                                    <a href="#!" class="text-body">
+                                                        price
+                                                        <i class="bi bi-chevron-down"></i>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Product Card -->
+                                        <div th:each="item : ${cart.items}" class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between" style="gap: 100px;">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <a th:href="@{'/books/' + ${item.book.id}}">
+                                                            <div>
+                                                                <img
+                                                                        th:src="${item.book.thumbnail}"
+                                                                        class="img-fluid rounded-3" alt="Shopping item"
+                                                                        style="width: 65px;">
+                                                            </div>
+                                                        </a>
+                                                        <a th:href="@{'/books/' + ${item.book.id}}">
+                                                            <div class="ms-3">
+                                                                <h5 th:text="${item.book.name}">Book Name</h5>
+                                                                <p th:text="${item.book.author}" class="small mb-0"></p>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div class="d-flex" style="width: 160px;">
+                                                            <form th:action="@{'/cart/update/' + ${item.book.id}}"
+                                                                  method="post">
+                                                                <input type="hidden" name="action" value=""/>
+                                                                <button type="submit" name="action" value="minus"
+                                                                        class="btn btn-primary quantity-btn"
+                                                                        data-type="minus">
+                                                                    <i class="bi bi-dash"></i>
+                                                                </button>
+                                                                <input type="number" name="quantity"
+                                                                       value="${item.quantity}"
+                                                                       th:value="${item.quantity}"
+                                                                       class="fw-normal mb-0 mx-2 fw-bold bs-6"
+                                                                       style="width: 10px; border: none;"
+                                                                       min="1" readonly/>
+                                                                <button type="submit" name="action" value="plus"
+                                                                        class="btn btn-primary quantity-btn"
+                                                                        data-type="plus">
+                                                                    <i class="bi bi-plus-lg"></i>
+                                                                </button>
+                                                                <input type="hidden" name="_csrf"
+                                                                       th:value="${_csrf.token}"/>
+                                                            </form>
+
+
+                                                        </div>
+                                                        <div style="width: 90px;">
+                                                            <h5 th:text="'&#8377;' + ${item.book.price}" class="mb-0">#
+                                                                Book Price</h5>
+                                                        </div>
+                                                        <form th:action="@{'/cart/remove/' + ${item.book.id}}"
+                                                              method="post">
+                                                            <button type="submit" class="bg-white"
+                                                                    style="border: none;">
+                                                                <i class="bi bi-trash3-fill text-dark"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--                                Summary Section-->
+                                <div class="col-lg-4">
+
+                                    <div class="card bg-white rounded-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <h5 class="mb-0">Summary</h5>
+                                            </div>
+
+                                            <hr class="my-3">
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Subtotal</p>
+                                                <p th:text="'&#8377;' + ${subtotal}" class="mb-2 fw-semibold"># subtotal</p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Discount</p>
+                                                <p th:text="'- &#8377;' + ${discount}" class="mb-2 text-danger fw-semibold">#
+                                                    Discount</p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Shipping Charges</p>
+                                                <p th:text="'&#8377;' + ${shippingCharges}" class="mb-2 fw-semibold"># Shipping</p>
+                                            </div>
+
+                                            <hr class="my-3">
+
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <p class="mb-2">Total(Incl. taxes)</p>
+                                                <p th:text="'&#8377;' + ${grandTotal}" class="mb-2 fw-bold"># Grand Total</p>
+                                            </div>
+
+                                            <form th:action="@{/payment/checkout}" method="post">
+                                                <div th:each="item, iterStat : ${cart.items}">
+                                                    <input type="hidden" th:name="items[__${iterStat.index}__].book.id"
+                                                           th:value="${item.book.id}"/>
+                                                    <input type="hidden" th:name="items[__${iterStat.index}__].quantity"
+                                                           th:value="${item.quantity}"/>
+                                                </div>
+                                                <div>
+                                                    <input type="hidden" th:name="subTotal" th:value="${subtotal}"/>
+                                                    <input type="hidden" th:name="discount" th:value="${discount}"/>
+                                                    <input type="hidden" th:name="shippingCharges"
+                                                           th:value="${shippingCharges}"/>
+                                                    <input type="hidden" th:name="grandTotal" th:value="${grandTotal}"/>
+                                                </div>
+                                                <button type="submit"
+                                                        class="btn btn-dark btn-block"
+                                                        style="width: 100%"
+                                                        th:disabled="${cart.items.isEmpty()}"
+                                                >
+                                                    Proceed to Buy
+                                                    <i class="bi bi-arrow-right ms-2"></i>
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--    Todo: Use optional block-->
+    <script th:src="@{/logic/cart.js}"></script>
+</div>
+</body>
+</html>

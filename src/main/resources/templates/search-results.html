@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/book-list.css}">
+    <title>Search Results</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <h1 class="my-4">Search Results</h1>
+
+        <div th:if="${#lists.isEmpty(books)}" style="min-height: 70vh;">
+            <h4>No books found</h4>
+        </div>
+
+        <div class="row">
+            <!-- Products -->
+            <div th:if="${!#lists.isEmpty(books)}" th:each="book : ${books}" class="col-md-2 product-card">
+                <a th:href="'/books/' + ${book.id}">
+                    <div class="card" style="border: none">
+                        <img
+                                th:src="${book.thumbnail}"
+                                class="card-img-top product-img"
+                                alt="Thumbnail"
+                        />
+                        <div class="card-body">
+                            <h6 th:text="${book.name}" class="book-title card-title text-dark">Book Name</h6>
+                            <p class="card-text text-dark">ratings (x)</p>
+                            <p th:text="'Rs. ' + ${book.price}" class="card-text text-dark mb-2">Price</p>
+                            <form action="#" th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                                <button href="#" class="btn btn-outline-primary add-to-cart-btn">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+

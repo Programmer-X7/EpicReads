@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Category</title>
+    <style>
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .form-container img {
+            display: block;
+            margin: 0 auto 1rem auto;
+            max-width: 100%;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="body">
+
+    <div class="container">
+        <div class="form-container mt-5">
+            <h2 class="text-center mb-4">Update Category</h2>
+            <form th:action="@{/category/edit}" method="post" enctype="multipart/form-data">
+                <!-- Preview Image -->
+                <div class="form-group text-center">
+                    <img id="preview" th:src="${category.image}"
+                         alt="Category Preview"
+                         class="img-fluid border"
+                         style="max-height: 200px;">
+                </div>
+
+                <!-- File Input -->
+                <div class="form-group">
+                    <input type="file" class="form-control" id="categoryImage" name="categoryImage" accept="image/*"
+                           style="width: 70%; margin: auto;">
+                </div>
+
+                <!-- Name Input -->
+                <div class="form-group">
+                    <input type="hidden" name="id" th:value="${category.id}">
+                    <label for="name" class="form-label">Category Name</label>
+                    <input th:value="${category.name}" type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <!-- Buttons -->
+                <div>
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <a href="#" class="btn btn-secondary" onclick="window.history.back();">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('categoryImage').onchange = function (event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('preview');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            };
+        </script>
+
+    </div>
+</div>
+</body>
+</html>

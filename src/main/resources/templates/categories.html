@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <title>Our Collections</title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-light">
+
+    <!-- Carousel -->
+    <section
+            id="carouselExample"
+            class="container carousel slide bg-light"
+            data-bs-ride="carousel"
+            data-bs-interval="3000"
+    >
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li
+                    data-bs-target="#carouselExample"
+                    data-bs-slide-to="0"
+                    class="active"
+            ></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="3"></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="4"></li>
+        </ol>
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <a th:href="@{books/category/4}">
+                    <img
+                            th:src="@{/assets/home-banner-2.webp}"
+                            class="d-block w-100"
+                            alt="Slide 2"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{books/category/5}">
+                    <img
+                            th:src="@{/assets/home-banner-5.webp}"
+                            class="d-block w-100"
+                            alt="Slide 5"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{/category}">
+                    <img
+                            th:src="@{/assets/home-banner-1.webp}"
+                            class="d-block w-100"
+                            alt="Slide 1"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{books/category/4}">
+                    <img
+                            th:src="@{/assets/home-banner-3.webp}"
+                            class="d-block w-100"
+                            alt="Slide 3"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{/category}">
+                    <img
+                            th:src="@{/assets/home-banner-4.webp}"
+                            class="d-block w-100"
+                            alt="Slide 4"
+                    />
+                </a>
+            </div>
+
+        </div>
+
+        <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </section>
+
+    <!-- Collections -->
+    <section class="mt-5">
+        <h2 class="text-center mb-4 fw-bold fs-2">Our Collections</h2>
+        <div
+                class="d-flex justify-content-center flex-wrap gap-2"
+                id="collection-container"
+        >
+            <div class="category_card" th:each="category : ${categories}">
+                <a th:href="@{'/books/category/' + ${category.id}}">
+                    <div class="category_image_card">
+                        <img
+                                class="category_image"
+                                th:src="${category.image}"
+                                alt="Self Help"
+                        />
+                    </div>
+                    <p th:inline="text" class="text-center mt-2 fw-semibold">
+                        <span th:text="${category.name}"></span>
+                        <i class="bi bi-arrow-right ms-1"></i>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- Logout Success Message -->
+    <div th:if="${logoutSuccessMessage}" class="alert alert-success alert-dismissible fade show my-2 container"
+         role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span th:text="${logoutSuccessMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Account Delete Success Message -->
+    <div th:if="${param.deletedprofile}" class="alert alert-danger alert-dismissible fade show my-2 container" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        Your account has been deleted successfully.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Carousel -->
+    <section
+            id="carouselExample"
+            class="carousel slide bg-light container"
+            data-bs-ride="carousel"
+            data-bs-interval="3000"
+    >
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li
+                    data-bs-target="#carouselExample"
+                    data-bs-slide-to="0"
+                    class="active"
+            ></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="3"></li>
+            <li data-bs-target="#carouselExample" data-bs-slide-to="4"></li>
+        </ol>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a th:href="@{/category}">
+                    <img
+                            th:src="@{/assets/home-banner-1.webp}"
+                            class="d-block w-100"
+                            alt="Slide 1"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{books/category/4}">
+                    <img
+                            th:src="@{/assets/home-banner-2.webp}"
+                            class="d-block w-100"
+                            alt="Slide 2"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{books/category/4}">
+                    <img
+                            th:src="@{/assets/home-banner-3.webp}"
+                            class="d-block w-100"
+                            alt="Slide 3"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{/category}">
+                    <img
+                            th:src="@{/assets/home-banner-4.webp}"
+                            class="d-block w-100"
+                            alt="Slide 4"
+                    />
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{books/category/5}">
+                    <img
+                            th:src="@{/assets/home-banner-5.webp}"
+                            class="d-block w-100"
+                            alt="Slide 5"
+                    />
+                </a>
+            </div>
+        </div>
+
+        <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </section>
+
+    <!-- Featured Books -->
+    <section class="album py-5 bg-body-tertiary">
+        <div class="container text-center mb-4 fw-bold fs-2">Featured Books</div>
+        <div class="container">
+            <div class="row row-cols-2 row-cols-sm-4 row-cols-md-6 g-3">
+                <!--                Book Card-->
+                <div class="col" th:each="book : ${featuredBooks}">
+                    <a th:href="@{'/books/' + ${book.id}}">
+                        <div class="card shadow-sm">
+                            <img th:src="${book.thumbnail}" alt="Thumbnail" class="p-2" style="height: 300px;">
+                            <div class="card-body pt-0">
+                                <p th:text="${book.name}" class="book-title card-text fw-bold mb-0">Book Name</p>
+                                <p th:text="${book.author}" class="text-secondary mb-2" style="font-size: 13px">Robert
+                                    T.
+                                    Kiyosaki</p>
+                                <p th:text="'Rs. ' + ${book.price}" class="card-text fw-semibold">Rs. 599.00</p>
+                                <div style="width: 100%">
+                                    <form action="#" th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                                        <button
+                                                type="submit"
+                                                class="btn btn-outline-primary add-to-cart-btn"
+                                                style="width: 100%;"
+                                        >
+                                            Add to Cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Banner -->
+    <section class="mt-5"
+             th:style="'background-image: url(' + @{/assets/mountain.jpg} + '); background-size: cover; background-position: center;'">
+        <div class="container col-xxl-8">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+                        Discover Your Next Great Read
+                    </h1>
+                    <p class="lead fw-normal font-secondary">
+                        Welcome to our bookstore, your go-to destination for a diverse selection of books across all
+                        genres. From the latest bestsellers to timeless classics, we have something for every reader.
+                        Dive into our collection and find your next favorite book today.
+
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a th:href="@{/category}">
+                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
+                                Shop Now
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img
+                            th:src="@{assets/book-collage.webp}"
+                            class="d-block mx-lg-auto img-fluid"
+                            alt="Bootstrap Themes"
+                            width="700"
+                            height="500"
+                            loading="lazy"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Seller Books -->
+    <section class="album py-5 bg-body-tertiary">
+        <div class="container text-center mb-4 fw-bold fs-2">Our Bestsellers</div>
+        <div class="container">
+            <div class="row row-cols-2 row-cols-sm-4 row-cols-md-6 g-3">
+                <!--                Book Card -->
+                <div class="col" th:each="book : ${bestSellers}">
+                    <a th:href="@{'/books/' + ${book.id}}">
+                        <div class="card shadow-sm">
+                            <img th:src="${book.thumbnail}" alt="Thumbnail" class="p-2" style="height: 300px;">
+                            <div class="card-body pt-0">
+                                <p th:text="${book.name}" class="book-title card-text fw-bold mb-0">Book Name</p>
+                                <p th:text="${book.author}" class="text-secondary mb-2" style="font-size: 13px">Robert
+                                    T.
+                                    Kiyosaki</p>
+                                <p th:text="'Rs. ' + ${book.price}" class="card-text fw-semibold">Rs. 599.00</p>
+                                <div style="width: 100%">
+                                    <form action="#" th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-primary add-to-cart-btn"
+                                            style="width: 100%;"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a th:href="@{/category}" class="btn btn-primary">See More <span><i
+                        class="bi bi-arrow-right ms-2"></i></span></a>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* Carousel Styles */
+    .carousel-item {
+    height: 350px;
+    }
+
+    .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    }
+
+    ol {
+    list-style-type: none;
+    }
+
+
+/* Card Style */
+
+.category_card {
+          width: 250px;
+          height: 300px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          margin: 5px; /* Adjust spacing between items as needed */
+          /* overflow: hidden; */
+        }
+
+        .category_image_card {
+          overflow: hidden;
+        }
+
+        .category_image {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          transition: transform 0.3s ease-in-out;
+          background: #000;
+        }
+
+        .category_card:hover .category_image {
+          transform: scale(1.1);
+        }

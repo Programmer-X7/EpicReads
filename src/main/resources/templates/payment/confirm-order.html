@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Order</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <section class="h-100 bg-light">
+        <div class="container py-3" style="height: 35rem">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card bg-light border-0">
+                        <div class="card-body p-4">
+                            <div class="row d-flex justify-content-center">
+
+                                <div class="col-lg-4">
+
+                                    <div class="card bg-white rounded-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <h5 class="mb-0">Confirm Order</h5>
+                                            </div>
+
+                                            <hr class="my-3">
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Name</p>
+                                                <p th:text="${paymentDetails.customerDetails.customerName}"
+                                                   class="mb-2"></p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Email</p>
+                                                <p th:text="${paymentDetails.customerDetails.customerEmail}"
+                                                   class="mb-2"></p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Order ID</p>
+                                                <p th:text="${paymentDetails.orderId}" class="mb-2"></p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Date</p>
+                                                <p th:text="${paymentDetails.createdAt}" class="mb-2"></p>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Order Status</p>
+                                                <p th:text="${paymentDetails.orderStatus}" class="mb-2"></p>
+                                            </div>
+
+                                            <hr class="my-3">
+
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <p class="mb-2">Amount (Inc. taxes)</p>
+                                                <p th:text="'&#8377; ' + ${paymentDetails.orderAmount}" class="mb-2"></p>
+                                            </div>
+
+<!--                                            To get the session id on js-->
+                                            <input id="cfPaymentSessionId" type="hidden" th:value="${paymentDetails.paymentSessionId}"></input>
+
+                                            <button id="payNow"
+                                                    type="button"
+                                                    class="btn btn-success btn-block"
+                                                    style="width: 100%"
+                                            >
+                                                Pay Now
+                                                <i class="bi bi-arrow-right ms-2"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+</body>
+</html>
