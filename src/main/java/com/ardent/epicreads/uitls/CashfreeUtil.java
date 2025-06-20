@@ -15,7 +15,7 @@ public class CashfreeUtil {
 
     Cashfree cashfree = new Cashfree();
     String xApiVersion = "2022-09-01";
-    String returnUrl = "http://localhost:8080/payment/payment-success";
+    String returnUrl = "https://epicread-bookstore.onrender.com/payment/payment-success";
 
 
     public ApiResponse<OrderEntity> getCashfreeOrderResponse (String orderId,
